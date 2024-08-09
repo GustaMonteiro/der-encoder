@@ -2,7 +2,6 @@
 #include "make_buffer_string.h"
 #include "der_encoder.h"
 
-
 void test_encoding_primitive_integer()
 {
     std::vector<std::pair<int, std::string>> tests{

@@ -3,7 +3,6 @@
 class Der_Encoder
 {
 public:
-
     Der_Encoder &encode_integer(long long value);
     Der_Encoder &encode_integer(const std::vector<unsigned char> &value);
     Der_Encoder &start_sequence();

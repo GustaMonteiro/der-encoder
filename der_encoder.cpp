@@ -8,7 +8,9 @@ enum TAG : unsigned char
 
 Der_Encoder &Der_Encoder::encode_integer(long long value)
 {
-    this->sequences.top().push_back(INTEGER);
+    auto &current_sequence = this->sequences.top();
+
+    current_sequence.push_back(INTEGER);
 
     int number_of_bytes = sizeof(value);
     bool is_negative = value < 0;
@@ -31,14 +33,16 @@ Der_Encoder &Der_Encoder::encode_integer(long long value)
 
     this->encode_size(value_bytes.size());
 
-    this->sequences.top().insert(this->sequences.top().end(), value_bytes.begin(), value_bytes.end());
+    current_sequence.insert(current_sequence.end(), value_bytes.begin(), value_bytes.end());
 
     return *this;
 }
 
 Der_Encoder &Der_Encoder::encode_integer(const std::vector<unsigned char> &value)
 {
-    this->sequences.top().push_back(INTEGER);
+    auto &current_sequence = this->sequences.top();
+
+    current_sequence.push_back(INTEGER);
 
     size_t size = value.size();
     bool need_leading_zero = value[0] & 0x80;
@@ -49,9 +53,9 @@ Der_Encoder &Der_Encoder::encode_integer(const std::vector<unsigned char> &value
     this->encode_size(size);
 
     if (need_leading_zero)
-        this->sequences.top().push_back(0);
+        current_sequence.push_back(0);
 
-    this->sequences.top().insert(this->sequences.top().end(), value.begin(), value.end());
+    current_sequence.insert(current_sequence.end(), value.begin(), value.end());
 
     return *this;
 }
