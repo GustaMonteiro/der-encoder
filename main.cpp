@@ -98,6 +98,22 @@ void test_encoding_sequences()
 
              encoder
                  .start_sequence()
+                 .start_sequence()
+                 .encode_integer(5)
+                 .end_sequence()
+                 .encode_integer(10)
+                 .end_sequence();
+
+             return make_buffer_string(encoder.get_buffer());
+         }(),
+         "3008300302010502010a"},
+
+        {[]()
+         {
+             Der_Encoder encoder;
+
+             encoder
+                 .start_sequence()
                  .encode_integer(std::vector<unsigned char>(127, 1))
                  .encode_integer(std::vector<unsigned char>(128, 1))
                  .encode_integer(std::vector<unsigned char>(255, 1))
